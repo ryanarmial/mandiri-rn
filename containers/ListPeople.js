@@ -1,5 +1,11 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList} from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image
+} from 'react-native'
 import peopleList from '../utils/data.json'
 
 class ListPeople extends React.Component {
@@ -20,13 +26,23 @@ class ListPeople extends React.Component {
         <Text>Daftar Nama Orang</Text>
         <FlatList
           data={this.state.people}
-          numColumns={3}
+          numColumns={1}
           horizontal={false}
+          style={styles.flatlist}
+          keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => {
             return (
-              <View style={{ width: '33%' }}>
-                <Text>{item.name}</Text>
-                <Text>{item.email}</Text>
+              <View>
+                <View style={{ width: '30%' }}>
+                  <Image
+                    style={{ width: 50, height: 50 }}
+                    source={{uri: item.picture}}
+                  />
+                </View>
+                <View style={{ width: '70%' }}>
+                  <Text>{item.name}</Text>
+                  <Text>{item.email}</Text>
+                </View>
               </View>
             )
           }}
@@ -45,6 +61,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%'
+    width: '100%',
+    paddingTop: 20
   },
+  flatlist: {
+    padding: 20,
+    width: "100%"
+  }
 });
