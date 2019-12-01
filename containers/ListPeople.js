@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   FlatList,
-  Image
+  Image,
+  TouchableHighlight
 } from 'react-native'
 import peopleList from '../utils/data.json'
 
@@ -30,20 +31,25 @@ class ListPeople extends React.Component {
           horizontal={false}
           style={styles.flatlist}
           keyExtractor={(_, index) => index.toString()}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             return (
-              <View style={styles.listItem}>
-                <View style={{ width: '30%' }}>
-                  <Image
-                    style={{ width: 50, height: 50 }}
-                    source={{uri: item.picture}}
-                  />
+              <TouchableHighlight
+                onPress={() => this.props.navigation.navigate('Detail',{
+                  idPerson: index
+                })}>
+                <View style={styles.listItem}>
+                  <View style={{ width: '30%' }}>
+                    <Image
+                      style={{ width: 50, height: 50 }}
+                      source={{ uri: item.picture }}
+                    />
+                  </View>
+                  <View style={{ width: '70%' }}>
+                    <Text>{item.name}</Text>
+                    <Text>{item.email}</Text>
+                  </View>
                 </View>
-                <View style={{ width: '70%' }}>
-                  <Text>{item.name}</Text>
-                  <Text>{item.email}</Text>
-                </View>
-              </View>
+              </TouchableHighlight>
             )
           }}
         />

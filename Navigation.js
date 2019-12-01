@@ -18,10 +18,16 @@ import Home from './containers/Home'
 import About from './containers/About'
 import AboutCompany from './containers/AboutCompany'
 import ListPeople from './containers/ListPeople'
+import Detail from './containers/Detail'
 
 const aboutStackNav = createStackNavigator({
   About,
   AboutCompany
+})
+
+const peopleStackNav = createStackNavigator({
+  ListPeople,
+  Detail
 })
 
 const rootNavigator = createBottomTabNavigator({
@@ -40,7 +46,7 @@ const rootNavigator = createBottomTabNavigator({
       headerShown: false
     })
   },
-  ListPeople
+  peopleStackNav
 }, {
   initialRouteName: 'Home',
   navigationOptions: () => ({
