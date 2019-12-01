@@ -5,7 +5,7 @@ import Title from '../components/Title'
 import List from '../components/List'
 import Tombol from '../components/Tombol'
 
-const Home = () => {
+const Home = (props) => {
   const [word, setWord] = useState('Digimaster')
   const [todos, setTodos] = useState([
     'Bangun',
@@ -64,6 +64,10 @@ const Home = () => {
         onChangeText={changeText}
       />
       <Tombol click={addTodo}/>
+      <Button
+        title="Pindah ke About"
+        onPress={() => props.navigation.navigate('About')}
+      />
     </View>
   );
 }

@@ -32,7 +32,7 @@ class ListPeople extends React.Component {
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => {
             return (
-              <View>
+              <View style={styles.listItem}>
                 <View style={{ width: '30%' }}>
                   <Image
                     style={{ width: 50, height: 50 }}
@@ -67,5 +67,12 @@ const styles = StyleSheet.create({
   flatlist: {
     padding: 20,
     width: "100%"
+  },
+  listItem: {
+    flex: 1,
+    flexDirection: 'row',
+    marginBottom: 10
   }
 });
+
+// see https://css-tricks.com/snippets/css/a-guide-to-flexbox/

@@ -60,6 +60,10 @@ class About extends React.Component {
             return this.ganti("Mandiri")
           }}
         />
+        <Button
+          title="Pindah ke List People"
+          onPress={() => this.props.navigation.navigate('ListPeople')}
+        />
         {/* Ini adalah contoh high order function sederhana */}
         {/* <Button
           title="Ganti"
