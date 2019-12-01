@@ -10,7 +10,7 @@
 // npm install react-navigation-tabs
 // npm i react-native-reanimated
 import React from 'react'
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 
@@ -19,6 +19,7 @@ import About from './containers/About'
 import AboutCompany from './containers/AboutCompany'
 import ListPeople from './containers/ListPeople'
 import Detail from './containers/Detail'
+import Login from './containers/Login'
 
 const aboutStackNav = createStackNavigator({
   About,
@@ -35,7 +36,7 @@ const homeStackNav = createStackNavigator({
   Detail
 })
 
-const rootNavigator = createBottomTabNavigator({
+const mainNavigator = createBottomTabNavigator({
   Home: {
     screen: homeStackNav,
     navigationOptions: function(){
@@ -58,5 +59,11 @@ const rootNavigator = createBottomTabNavigator({
     // headerShown: false
   })
 })
+
+const rootNavigator = createSwitchNavigator({
+  Login,
+  mainNavigator
+})
+
 
 export default createAppContainer(rootNavigator)
