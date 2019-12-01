@@ -1,102 +1,44 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import React from 'react'
+// jangan lupa install native-base
+// npm install native-base --save
+// karna beberapa component menggunakan expo font jadi kita harus install expo font caranya:
+// expo install expo-font
+import { Container, Header, Content, List, ListItem, Left, Body, Right, Thumbnail, Text } from 'native-base';
 
-import Title from '../components/Title'
-import List from '../components/List'
-import Tombol from '../components/Tombol'
-
-const Home = (props) => {
-  const [word, setWord] = useState('Digimaster')
-  const [todos, setTodos] = useState([
-    'Bangun',
-    'Tidur',
-    'Makan'
-  ])
-  const [ barang, setBarang ] = useState([
-    10000,
-    20000,
-    30000
-  ])
-  const [ total, setTotal ] = useState(0)
-  const [newTodo, setNewTodo] = useState('')
-
-  useEffect(() => {
-    console.log('saya hanya jalan satu kali')
-  }, [])
-
-  useEffect(() => {
-    console.log('hanya jalan ketika state newTodo berubah dan todos berubah')
-  }, [newTodo, todos])
-
-  useEffect(() => {
-    let hitung = 0
-    for(var i = 0; i<barang.length; i++){
-      hitung += barang[i]
-    }
-    console.log(hitung)
-    setTotal(hitung)
-  }, [barang])
-
-  function pencet() {
-    setWord('Mandiri')
+export default class Home extends React.Component {
+  render() {
+    return (
+      <Container>
+        <Header />
+        <Content>
+          <List>
+            <ListItem avatar>
+              <Left>
+                <Thumbnail source={{ uri: 'https://randomuser.me/api/portraits/med/men/14.jpg' }} />
+              </Left>
+              <Body>
+                <Text>Kumar Pratik</Text>
+                <Text note>Doing what you like will always keep you happy . .</Text>
+              </Body>
+              <Right>
+                <Text note>3:43 pm</Text>
+              </Right>
+            </ListItem>
+            <ListItem avatar>
+              <Left>
+                <Thumbnail source={{ uri: 'https://randomuser.me/api/portraits/med/men/14.jpg' }} />
+              </Left>
+              <Body>
+                <Text>Kumar Pratik</Text>
+                <Text note>Doing what you like will always keep you happy . .</Text>
+              </Body>
+              <Right>
+                <Text note>3:43 pm</Text>
+              </Right>
+            </ListItem>
+          </List>
+        </Content>
+      </Container>
+    );
   }
-
-  function changeText(text) {
-    setNewTodo(text)
-  }
-  function addTodo() {
-    console.log(newTodo)
-    // alert(newTodo)
-    if (newTodo != '') {
-      setBarang(barang.concat(Number(newTodo)))
-      setNewTodo('')
-    }
-  }
-
-  return (
-    <View style={styles.container}>
-      <Title data={word} kata="berkait" />
-      <List data={barang}/>
-      <Text>Total harga barang adalah {total}</Text>
-      <TextInput
-        style={{ width: '50%', borderColor: 'red', borderWidth: 1 }}
-        value={newTodo}
-        onChangeText={changeText}
-      />
-      <Tombol click={addTodo}/>
-      <Button
-        title="Pindah ke About"
-        onPress={() => props.navigation.navigate('About')}
-      />
-    </View>
-  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  list: {
-    flex: 2,
-    backgroundColor: '#fff'
-  },
-  list2: {
-    flex: 5,
-    backgroundColor: '#000'
-  },
-  red: {
-    color: 'red',
-    backgroundColor: 'yellow',
-    width: '75%'
-  },
-  blue: {
-    color: 'blue',
-    backgroundColor: 'purple',
-    width: '50%'
-  }
-});
-
-export default Home;
