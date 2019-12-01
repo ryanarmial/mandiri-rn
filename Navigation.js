@@ -30,12 +30,17 @@ const peopleStackNav = createStackNavigator({
   Detail
 })
 
+const homeStackNav = createStackNavigator({
+  Home,
+  Detail
+})
+
 const rootNavigator = createBottomTabNavigator({
   Home: {
-    screen: Home,
+    screen: homeStackNav,
     navigationOptions: function(){
       return {
-        title: 'Selamat Datang di Home'
+        title: 'Rumah'
       }
     }
   },
