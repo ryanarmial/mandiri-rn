@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 import Title from '../components/Title'
 import List from '../components/List'
+import Tombol from '../components/Tombol'
 
 const Home = () => {
   const [word, setWord] = useState('Digimaster')
@@ -11,7 +12,30 @@ const Home = () => {
     'Tidur',
     'Makan'
   ])
+  const [ barang, setBarang ] = useState([
+    10000,
+    20000,
+    30000
+  ])
+  const [ total, setTotal ] = useState(0)
   const [newTodo, setNewTodo] = useState('')
+
+  useEffect(() => {
+    console.log('saya hanya jalan satu kali')
+  }, [])
+
+  useEffect(() => {
+    console.log('hanya jalan ketika state newTodo berubah dan todos berubah')
+  }, [newTodo, todos])
+
+  useEffect(() => {
+    let hitung = 0
+    for(var i = 0; i<barang.length; i++){
+      hitung += barang[i]
+    }
+    console.log(hitung)
+    setTotal(hitung)
+  }, [barang])
 
   function pencet() {
     setWord('Mandiri')
@@ -24,7 +48,7 @@ const Home = () => {
     console.log(newTodo)
     // alert(newTodo)
     if (newTodo != '') {
-      setTodos(todos.concat(newTodo))
+      setBarang(barang.concat(Number(newTodo)))
       setNewTodo('')
     }
   }
@@ -32,17 +56,14 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <Title data={word} kata="berkait" />
-      <List data={todos}/>
+      <List data={barang}/>
+      <Text>Total harga barang adalah {total}</Text>
       <TextInput
         style={{ width: '50%', borderColor: 'red', borderWidth: 1 }}
         value={newTodo}
         onChangeText={changeText}
       />
-      <Button
-        title="Add Todo"
-        color="green"
-        onPress={addTodo}
-      />
+      <Tombol click={addTodo}/>
     </View>
   );
 }

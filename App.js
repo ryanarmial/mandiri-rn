@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-// import Home from './containers/Home'
-import About from './containers/About'
+// import About from './containers/About'
+import Home from './containers/Home'
 
 export default function App() {
-  return <About/>
+  return (
+    <Home></Home>
+  )
 }
