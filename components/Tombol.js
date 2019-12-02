@@ -1,12 +1,12 @@
 import React from 'react'
 import {Button} from 'react-native'
 
-export default (props) => {
+export default ({ label, click}) => {
   return (
     <Button
-      title="Add Todo"
+      title={label}
       color="green"
-      onPress={props.click}
+      onPress={click}
     />
   )
 }

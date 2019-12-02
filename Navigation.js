@@ -20,6 +20,9 @@ import AboutCompany from './containers/AboutCompany'
 import ListPeople from './containers/ListPeople'
 import Detail from './containers/Detail'
 import Login from './containers/Login'
+import Restaurant from './containers/Restaurant'
+import AddRestaurant from './containers/AddRestaurant'
+import EditRestaurant from './containers/EditRestaurant'
 
 const aboutStackNav = createStackNavigator({
   About,
@@ -35,7 +38,7 @@ const homeStackNav = createStackNavigator({
   Home,
   Detail
 })
-
+  
 const mainNavigator = createBottomTabNavigator({
   Home: {
     screen: homeStackNav,
@@ -45,24 +48,33 @@ const mainNavigator = createBottomTabNavigator({
       }
     }
   },
+  Restaurant: {
+    screen: Restaurant
+  },
+  AddRestaurant: {
+    screen: AddRestaurant
+  },
+  EditRestaurant: {
+    screen: EditRestaurant
+  },
   About: {
     screen: aboutStackNav,
     navigationOptions: () => ({
       title: "About Digimaster",
-      headerShown: false
+      headerShown: true
     })
   },
   peopleStackNav
 }, {
-  initialRouteName: 'Home',
+  initialRouteName: 'Restaurant',
   navigationOptions: () => ({
     // headerShown: false
   })
 })
 
 const rootNavigator = createSwitchNavigator({
-  Login,
-  mainNavigator
+  mainNavigator,
+  Login
 })
 
 
