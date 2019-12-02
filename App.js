@@ -4,6 +4,8 @@ import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 
+console.disableYellowBox = true
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);

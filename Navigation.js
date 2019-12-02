@@ -38,6 +38,12 @@ const homeStackNav = createStackNavigator({
   Home,
   Detail
 })
+
+const restaurantStackNav = createStackNavigator({
+  Restaurant,
+  AddRestaurant,
+  EditRestaurant
+})
   
 const mainNavigator = createBottomTabNavigator({
   Home: {
@@ -49,19 +55,16 @@ const mainNavigator = createBottomTabNavigator({
     }
   },
   Restaurant: {
-    screen: Restaurant
-  },
-  AddRestaurant: {
-    screen: AddRestaurant
-  },
-  EditRestaurant: {
-    screen: EditRestaurant
+    screen: restaurantStackNav,
+    navigationOptions: () => ({
+      headerShown: true
+    })
   },
   About: {
     screen: aboutStackNav,
     navigationOptions: () => ({
       title: "About Digimaster",
-      headerShown: true
+      headerShown: false
     })
   },
   peopleStackNav

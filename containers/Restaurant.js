@@ -14,7 +14,6 @@ class Restaurant extends Component{
     super()
     // property atau attributes
     this.state = {
-      message: "hello world",
       restaurants: [
         {
           Title: "RM Garuda",
@@ -50,21 +49,10 @@ class Restaurant extends Component{
     this.ambilDataRestoran()
   }
 
-  componentWillReceiveProps(nextProps){
-    console.log('----1', this.props)
-    console.log('----2', nextProps)
-  } 
-
 
   render(){
-    
     return (
       <View style={{ margin: 30 }}>
-        <Text>{this.state.message}</Text>
-        <Tombol
-          label="Fetch data"
-          click={() => this.ambilDataRestoran() }
-        />
         <Tombol
           label="Add restaurant"
           click={() => this.props.navigation.navigate('AddRestaurant') }
@@ -77,7 +65,7 @@ class Restaurant extends Component{
             return <TouchableOpacity
               onPress={ () => this.props.navigation.navigate('EditRestaurant', {resto: item} )}
             >
-            <View style={{ flexDirection: 'row', backgroundColor: '#eee'}}>
+            <View style={{ flexDirection: 'row', backgroundColor: '#eee', marginVertical: 5, padding: 5}}>
               <Image 
                 source={{ uri: item.image }} 
                 style={{ height: 100, width: 100}}
