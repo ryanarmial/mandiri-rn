@@ -23,6 +23,7 @@ import Login from './containers/Login'
 import Restaurant from './containers/Restaurant'
 import AddRestaurant from './containers/AddRestaurant'
 import EditRestaurant from './containers/EditRestaurant'
+import Counter from './containers/Counter'
 
 const aboutStackNav = createStackNavigator({
   About,
@@ -54,6 +55,9 @@ const mainNavigator = createBottomTabNavigator({
       }
     }
   },
+  Counter: {
+    screen: Counter
+  },
   Restaurant: {
     screen: restaurantStackNav,
     navigationOptions: () => ({
@@ -69,7 +73,7 @@ const mainNavigator = createBottomTabNavigator({
   },
   peopleStackNav
 }, {
-  initialRouteName: 'Restaurant',
+  initialRouteName: 'Counter',
   navigationOptions: () => ({
     // headerShown: false
   })

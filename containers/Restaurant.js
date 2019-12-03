@@ -10,6 +10,7 @@ import {
 import axios from 'axios'
 import Tombol from '../components/Tombol'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import store from '../redux/store'
 
 class Restaurant extends Component{
   constructor(){
@@ -59,7 +60,7 @@ class Restaurant extends Component{
   render(){
     return (
       <View style={{ margin: 30 }}>
-        <Text>{this.state.message}</Text>
+        <Text>{store.getState()}</Text>
         <TextInput style={{ borderWidth: 1, height: 30}} onChangeText={(text) => {
           console.log('2----->', text)
           AsyncStorage.setItem('message', text)
