@@ -4,7 +4,7 @@ import restaurantReducer from '../redux/reducers/restaurantReducer'
 
 const reducer = combineReducers({
   counterReducer,
-  restaurantReducer,
+  restaurantReducer
 })
 
 const store = createStore(reducer) 

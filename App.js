@@ -3,6 +3,8 @@ import Navigation from './Navigation'
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
+import { Provider } from 'react-redux'
+import myStore from './redux/store'
 
 console.disableYellowBox = true
 
@@ -29,7 +31,9 @@ export default class App extends React.Component {
     }
 
     return (
-      <Navigation/>
+      <Provider store={myStore}>
+        <Navigation/>
+      </Provider>
     );
   }
 }

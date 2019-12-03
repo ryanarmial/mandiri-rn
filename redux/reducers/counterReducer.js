@@ -1,5 +1,6 @@
 
-const counterReducer = (state=0, action) => {
+const counterReducer = (state=99, action) => {
+  console.log('------masuk reducer', action)
   switch (action.type) {
     case 'INC':
       return state + action.step

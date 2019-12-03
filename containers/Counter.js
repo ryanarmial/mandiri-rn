@@ -5,26 +5,15 @@ import {
   Button,
   TextInput
 } from 'react-native'
-import store from '../redux/store'
-
+import { connect } from 'react-redux'
 
 
 class Counter extends React.Component{
-  constructor(){
+  constructor(props){
     super()
     this.state = {
-      counter: store.getState().counterReducer,
       step: 1
     }
-  }
-
-  componentDidMount(){
-    store.subscribe( () => {
-      console.log('-----subscribe', store.getState())
-      this.setState({
-         counter: store.getState().counterReducer,
-      })
-    })
   }
 
   render(){
@@ -32,7 +21,7 @@ class Counter extends React.Component{
     return(
       <View style={{marginTop: 40}}>
         <Text style={{ fontSize: 75}}> Counter</Text>
-        <Text style={{ fontSize: 75}}> { this.state.counter }</Text>
+        <Text style={{ fontSize: 75}}> { this.props.penghitung }</Text>
         <TextInput 
           style={{ borderWidth: 1, height: 30}}
           onChangeText={(text) => {
@@ -41,23 +30,47 @@ class Counter extends React.Component{
           />
         <Button 
           title="INCREMENT"
-          onPress={ () => {
-              store.dispatch({
-                type: 'INC',
-                step: step
-              })
-          }}
+          onPress={ () => this.props.naikan(step) }
         />
         <Button 
           title="DECREMENT"
-          onPress={ () => store.dispatch({
-            type: 'DEC',
-            step: step
-          }) }
+          onPress={ () => this.props.turunkan(step)  }
         />
       </View>
     )
   }
 }
 
-export default Counter
+const mapStateToProps = (state) => ({
+  penghitung: state.counterReducer
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    naikan: (langkah) => dispatch({
+      type: 'INC',
+      step: langkah
+    }),
+    turunkan: (langkah) => dispatch({
+      type: 'DEC',
+      step: langkah
+    })
+  }
+}
+ 
+const connectedCounter = connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(Counter)
+
+export default connectedCounter
+
+// redux way
+// store.getState().counterReducer
+
+// // react-redux  way
+// this.props.penghitung
+
+// this.props.dispatch({
+
+// })
