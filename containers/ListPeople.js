@@ -5,26 +5,35 @@ import {
   StyleSheet,
   FlatList,
   Image,
-  TouchableHighlight
+  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native'
 import peopleList from '../utils/data.json'
+import axios from 'axios'
 
 class ListPeople extends React.Component {
 
   state = {
-    people: []
+    people: [],
+    loading: false
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    let url = "https://jsonplaceholder.typicode.com/users"
+    this.setState({ loading: true})
+
+    const resp = await axios.get(url)
     this.setState({
-      people: peopleList
-    })
+      people: resp.data,
+      loading: false
+    })    
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text>Daftar Nama Orang</Text>
+        { this.state.loading && <ActivityIndicator size="large" color="red" />}
         <FlatList
           data={this.state.people}
           numColumns={1}
@@ -33,7 +42,7 @@ class ListPeople extends React.Component {
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item, index }) => {
             return (
-              <TouchableHighlight
+              <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('Detail',{
                   idPerson: index
                 })}>
@@ -41,7 +50,7 @@ class ListPeople extends React.Component {
                   <View style={{ width: '30%' }}>
                     <Image
                       style={{ width: 50, height: 50 }}
-                      source={{ uri: item.picture }}
+                      source={{ uri: "https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425_960_720.png" }}
                     />
                   </View>
                   <View style={{ width: '70%' }}>
@@ -49,7 +58,7 @@ class ListPeople extends React.Component {
                     <Text>{item.email}</Text>
                   </View>
                 </View>
-              </TouchableHighlight>
+              </TouchableOpacity>
             )
           }}
         />

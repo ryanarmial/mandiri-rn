@@ -3,7 +3,9 @@ import {
   View,
   Text,
   FlatList,
-  Image
+  Image,
+  TextInput,
+  AsyncStorage
 } from 'react-native'
 import axios from 'axios'
 import Tombol from '../components/Tombol'
@@ -14,6 +16,7 @@ class Restaurant extends Component{
     super()
     // property atau attributes
     this.state = {
+      message: '',
       restaurants: [
         {
           Title: "RM Garuda",
@@ -45,14 +48,23 @@ class Restaurant extends Component{
   }
 
   // DRY - Dont Repeat Yourself
-  componentDidMount(){
+  async componentDidMount(){
     this.ambilDataRestoran()
+    const messageFromStorage = await AsyncStorage.getItem('message')
+    console.log('1----->', messageFromStorage)
+    this.setState({ message: messageFromStorage})
   }
 
 
   render(){
     return (
       <View style={{ margin: 30 }}>
+        <Text>{this.state.message}</Text>
+        <TextInput style={{ borderWidth: 1, height: 30}} onChangeText={(text) => {
+          console.log('2----->', text)
+          AsyncStorage.setItem('message', text)
+        }}/>
+
         <Tombol
           label="Add restaurant"
           click={() => this.props.navigation.navigate('AddRestaurant') }
@@ -65,7 +77,7 @@ class Restaurant extends Component{
             return <TouchableOpacity
               onPress={ () => this.props.navigation.navigate('EditRestaurant', {resto: item} )}
             >
-            <View style={{ flexDirection: 'row', backgroundColor: '#eee', marginVertical: 5, padding: 5}}>
+            <View style={{ flexDirection: 'row', backgroundColor: '#eee', marginVertical: 5}}>
               <Image 
                 source={{ uri: item.image }} 
                 style={{ height: 100, width: 100}}
