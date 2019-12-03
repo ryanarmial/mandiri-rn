@@ -73,7 +73,7 @@ const mainNavigator = createBottomTabNavigator({
   },
   peopleStackNav
 }, {
-  initialRouteName: 'Counter',
+  initialRouteName: 'Restaurant',
   navigationOptions: () => ({
     // headerShown: false
   })

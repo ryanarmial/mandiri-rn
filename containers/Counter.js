@@ -13,20 +13,22 @@ class Counter extends React.Component{
   constructor(){
     super()
     this.state = {
-      counter: store.getState().counter,
+      counter: store.getState().counterReducer,
       step: 1
     }
   }
 
   componentDidMount(){
     store.subscribe( () => {
+      console.log('-----subscribe', store.getState())
       this.setState({
-         counter: store.getState().counter,
+         counter: store.getState().counterReducer,
       })
     })
   }
 
   render(){
+    const { step } = this.state
     return(
       <View style={{marginTop: 40}}>
         <Text style={{ fontSize: 75}}> Counter</Text>
@@ -42,9 +44,16 @@ class Counter extends React.Component{
           onPress={ () => {
               store.dispatch({
                 type: 'INC',
-                step: this.state.step
+                step: step
               })
           }}
+        />
+        <Button 
+          title="DECREMENT"
+          onPress={ () => store.dispatch({
+            type: 'DEC',
+            step: step
+          }) }
         />
       </View>
     )

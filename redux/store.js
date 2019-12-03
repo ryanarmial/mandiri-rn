@@ -1,24 +1,12 @@
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
+import counterReducer from '../redux/reducers/counterReducer'
+import restaurantReducer from '../redux/reducers/restaurantReducer'
 
-const defaultState = {
-  counter: 0
-}
+const reducer = combineReducers({
+  counterReducer,
+  restaurantReducer,
+})
 
-// pure function
-const reducer = (state=defaultState, action) => {
-
-  switch (action.type) {
-    case 'INC':
-      const newState = { counter: state.counter + action.step}
-      return newState
-    case 'DEC':
-      
-    default:
-      return state
-  }
-
-}
-
-const store = createStore(reducer)
+const store = createStore(reducer) 
 
 export default store

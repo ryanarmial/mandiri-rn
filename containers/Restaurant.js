@@ -18,20 +18,21 @@ class Restaurant extends Component{
     // property atau attributes
     this.state = {
       message: '',
-      restaurants: [
-        {
-          Title: "RM Garuda",
-          image: "https://x1.sdimgs.com/sd_static/a/126827/logo.png",
-          Location: "Singapore"
-        },
-      ],
+      restaurants: store.getState().restaurantReducer.restaurants,
     }
   }
 
   ambilDataRestoran(){
     let url = "http://dummy.rifkifauzi.id/restaurants"
     axios.get(url).then(resp => {
-      this.setState({ restaurants: resp.data })
+      
+      store.dispatch({
+        type: 'STORE_RESTAURANT',
+        payload: {
+          restaurants: resp.data
+        }
+      })
+
     })
   } 
 
@@ -49,20 +50,20 @@ class Restaurant extends Component{
   }
 
   // DRY - Dont Repeat Yourself
-  async componentDidMount(){
+  componentDidMount(){
     this.ambilDataRestoran()
-    const messageFromStorage = await AsyncStorage.getItem('message')
-    console.log('1----->', messageFromStorage)
-    this.setState({ message: messageFromStorage})
+    store.subscribe( () => {
+      this.setState({
+        restaurants: store.getState().restaurantReducer.restaurants
+      })
+    })  
   }
 
 
   render(){
     return (
       <View style={{ margin: 30 }}>
-        <Text>{store.getState()}</Text>
         <TextInput style={{ borderWidth: 1, height: 30}} onChangeText={(text) => {
-          console.log('2----->', text)
           AsyncStorage.setItem('message', text)
         }}/>
 
