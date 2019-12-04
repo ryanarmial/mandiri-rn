@@ -10,7 +10,8 @@ import {
 import axios from 'axios'
 import Tombol from '../components/Tombol'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import store from '../redux/store'
+import { connect } from 'react-redux'
+import { actionFetchRestaurants } from '../redux/actions/restaurantAction'
 
 class Restaurant extends Component{
   constructor(){
@@ -18,31 +19,19 @@ class Restaurant extends Component{
     // property atau attributes
     this.state = {
       message: '',
-      restaurants: store.getState().restaurantReducer.restaurants,
     }
   }
 
-  ambilDataRestoran(){
-    let url = "http://dummy.rifkifauzi.id/restaurants"
-    axios.get(url).then(resp => {
-      
-      store.dispatch({
-        type: 'STORE_RESTAURANT',
-        payload: {
-          restaurants: resp.data
-        }
-      })
 
-    })
-  } 
 
   hapusDataRestoran(item){
+
     let url = `http://dummy.rifkifauzi.id/restaurants/${item.id}`
     axios
       .delete(url)
       .then(resp => {
         alert(`${item.title} sucessfully deleted`)
-        let filteredRestaurants = this.state.restaurants.filter( resto => resto.id != item.id )
+        let filteredRestaurants = this.props.listRestaurants.filter( resto => resto.id != item.id )
         this.setState({
           restaurants: filteredRestaurants
         })
@@ -51,12 +40,7 @@ class Restaurant extends Component{
 
   // DRY - Dont Repeat Yourself
   componentDidMount(){
-    this.ambilDataRestoran()
-    store.subscribe( () => {
-      this.setState({
-        restaurants: store.getState().restaurantReducer.restaurants
-      })
-    })  
+    this.props.fetchRestaurants()
   }
 
 
@@ -73,7 +57,7 @@ class Restaurant extends Component{
         />
 
         <FlatList
-          data={this.state.restaurants}
+          data={this.props.listRestaurants}
           keyExtractor={ (item,i) => i.toString() }
           renderItem={ ({ item }) => {
             return <TouchableOpacity
@@ -104,10 +88,25 @@ class Restaurant extends Component{
       </View>
     )
   }
-
 }
 
+const mapStateToProps = (state) => {
+  return {
+    listRestaurants:  state.restaurantReducer.restaurants
+  }
+}
 
-export default Restaurant
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchRestaurants: () => dispatch(actionFetchRestaurants())
+   }
+}
+
+const connectedRestaurant = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Restaurant)
+
+export default connectedRestaurant
 
 

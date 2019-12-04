@@ -11,7 +11,7 @@ const defaultState = {
 
 const restaurantReducer = (state=defaultState, action) => {
   switch (action.type) {
-    case 'STORE_RESTAURANT':
+    case 'FETCH_RESTAURANT':
       newState = {...state, restaurants: action.payload.restaurants }
       return newState
     default:
